@@ -139,7 +139,8 @@ namespace VetClinic.Controllers
                 Name = p.Name,
                 Kind = p.Kind,
                 Breed = p.Breed,
-                BirthDate = p.BirthDate
+                BirthDate = p.BirthDate,
+                ImageId = p.ImageId
             }).ToList();
 
             return allPets;
@@ -149,14 +150,14 @@ namespace VetClinic.Controllers
         [Route("GetPetsByUser/{userId}")]
         public async Task<ActionResult<IEnumerable<PetViewModel>>> GetPetsByUser(string userId)
         {
-            var usersPets = this.db.Pet.Where(p => p.UserId == userId).Select(p => new PetViewModel
+            var usersPets = this.db.Pet.Where(p => p.UserId == userId && p.IsDeleted == false).Select(p => new PetViewModel
             {
                 PetId = p.Id,
                 Name = p.Name,
                 Kind = p.Kind,
                 Breed = p.Breed,
                 BirthDate = p.BirthDate,
-                
+                ImageId = p.ImageId
             }).ToList();
 
             return usersPets;
@@ -166,14 +167,15 @@ namespace VetClinic.Controllers
         [Route("GetPetById/{petId}")]
         public async Task<ActionResult<PetViewModel>> GetPetById(string petId)
         {
-            var pet = this.db.Pet.FirstOrDefault(p => p.Id == petId);
+            var pet = this.db.Pet.FirstOrDefault(p => p.Id == petId && p.IsDeleted == false);
 
             var petToDisplay = new PetViewModel
             {
                 Name = pet.Name,
                 Kind = pet.Kind,
                 Breed = pet.Breed,
-                ImageId = pet.ImageId
+                ImageId = pet.ImageId,
+                BirthDate = pet.BirthDate
             };
 
             return petToDisplay;
@@ -183,13 +185,14 @@ namespace VetClinic.Controllers
         [Route("FindPetsByName/{petName}")]
         public async Task<ActionResult<IEnumerable<PetViewModel>>> FindPetsByName(string petName) 
         {
-            var allFoundPets = this.db.Pet.Where(p => p.Name.Contains(petName)).Select(p => new PetViewModel
+            var allFoundPets = this.db.Pet.Where(p => p.Name.Contains(petName) && p.IsDeleted == false).Select(p => new PetViewModel
             {
                 PetId = p.Id,
                 Name = p.Name,
                 Kind = p.Kind,
                 Breed = p.Breed,
-                ImageId = p.ImageId
+                ImageId = p.ImageId,
+                BirthDate = p.BirthDate
             }).ToList();
 
             return allFoundPets;
