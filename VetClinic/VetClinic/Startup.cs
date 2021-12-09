@@ -41,7 +41,9 @@ namespace VetClinic
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VetClinic", Version = "v1" });
             });
 
-            services.AddDbContext<VetClinicDbContext>();
+            services.AddDbContext<VetClinicDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             
 

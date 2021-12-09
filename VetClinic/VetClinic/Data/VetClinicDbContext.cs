@@ -26,10 +26,10 @@ namespace VetClinic.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-3IBT8TO\SQLEXPRESS;Database=VetClinic;Integrated Security=True;");
-            }
+            //if (!optionsBuilder.IsConfigured)
+            //{
+            //    optionsBuilder.UseSqlServer(@"Server=DESKTOP-3IBT8TO\SQLEXPRESS;Database=VetClinic;Integrated Security=True;");
+            //}
 
             base.OnConfiguring(optionsBuilder);
         }
