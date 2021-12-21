@@ -34,6 +34,11 @@ namespace VetClinic.Controllers
         {
             var currentUser = await this.userManager.FindByIdAsync(userId);
 
+            if (currentUser == null)
+            {
+                return NotFound("User not found");
+            }
+
             var currentPetToAdd = new Pet
             {
                 Name = model.Name,
@@ -81,6 +86,11 @@ namespace VetClinic.Controllers
         {
             var petToDelete = this.db.Pet.FirstOrDefault(p => p.Id == petId);
 
+            if (petToDelete == null)
+            {
+                return NotFound("Pet not found");
+            }
+
             petToDelete.IsDeleted = true;
 
             await this.db.SaveChangesAsync();
@@ -93,6 +103,11 @@ namespace VetClinic.Controllers
         public async Task<ActionResult> ChangePet(string petId, [FromForm] ChangePetFormModel model)
         {
             var currentPet = this.db.Pet.FirstOrDefault(p => p.Id == petId);
+
+            if (currentPet == null)
+            {
+                return NotFound("Pet not found");
+            }
 
             if (model.Image != null)
             {
@@ -169,6 +184,11 @@ namespace VetClinic.Controllers
         {
             var pet = this.db.Pet.FirstOrDefault(p => p.Id == petId && p.IsDeleted == false);
 
+            if (pet == null)
+            {
+                return NotFound("Pet not found");
+            }
+
             var petToDisplay = new PetViewModel
             {
                 Name = pet.Name,
@@ -203,6 +223,11 @@ namespace VetClinic.Controllers
         public async Task<ActionResult<Image>> GetImage(string petId)
         {
             var pet = this.db.Pet.FirstOrDefault(p => p.Id == petId);
+
+            if (pet == null)
+            {
+                return NotFound("Pet not found");
+            }
 
             var image = this.db.Image.FirstOrDefault(i => i.PetId == petId);
 

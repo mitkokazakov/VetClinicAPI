@@ -84,7 +84,7 @@ namespace VetClinic.Controllers
 
             if (existingUser != null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User with this email already exist!!" });
+                return Conflict("User with this email already exist");
             }
 
             ApplicationUser newUser = new ApplicationUser()
@@ -157,7 +157,7 @@ namespace VetClinic.Controllers
 
             }
 
-            return Unauthorized("User not found");
+            return NotFound("User not found");
         }
 
         [HttpGet]
@@ -202,6 +202,11 @@ namespace VetClinic.Controllers
         {
             var currentUser = await userManager.FindByIdAsync(userId);
 
+            if (currentUser == null)
+            {
+                return NotFound("User not found");
+            }
+
             var userViewModel = new UserViewModel
             {
                 UserId = currentUser.Id,
@@ -221,6 +226,11 @@ namespace VetClinic.Controllers
         public async Task<ActionResult<UserViewModel>> ChangeUser(UserViewModel user)
         {
             var currentUser = await userManager.FindByIdAsync(user.UserId);
+
+            if (currentUser == null)
+            {
+                return NotFound("User not found");
+            }
 
             currentUser.FirstName = user.FirstName;
             currentUser.LastName = user.LastName;
