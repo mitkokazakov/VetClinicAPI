@@ -112,9 +112,7 @@ namespace VetClinic
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VetClinic v1"));
             }
 
-            //app.UseDefaultFiles();
-
-            //app.UseStaticFiles();
+            
 
             app.UseHttpsRedirection();
 
@@ -123,6 +121,10 @@ namespace VetClinic
             app.UseCors();
 
             app.UseAuthorization();
+
+            app.UseDefaultFiles();
+
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
