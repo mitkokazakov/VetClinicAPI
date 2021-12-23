@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "pets/getAllPets",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

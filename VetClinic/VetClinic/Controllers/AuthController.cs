@@ -157,7 +157,7 @@ namespace VetClinic.Controllers
 
             }
 
-            return NotFound("User not found");
+            return Unauthorized("User not found");
         }
 
         [HttpGet]
